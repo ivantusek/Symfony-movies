@@ -1,0 +1,33 @@
+{% extends 'MoviesBundle::layout.html.twig' %}
+
+{% block body %}
+<h1 style="margin: 80px 0 20px;">Persons</h1>
+<table class="table table-striped" width="100%">
+	<thead>
+		<tr align="left">
+			<th>Name</th>
+			<th>Surname</th>
+			<th>Date</th>
+			<th>Role</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	</tbody>	
+		{% for person in persons %}
+			<tr>
+				<td>{{ person.name }}</td>
+				<td>{{ person.surname }}</td>
+				<td>{{ person.dateBirth|date('F j, Y')}}</td>
+				<td>{{ person.roles.name }}</td>
+				<td><a href="{{ path('persons_edit', { 'id': person.id }) }}" class="btn btn-default">Edit</a></td>
+				<td><a href="{{ path('persons_delete', { 'id': person.id }) }}" class="btn btn-danger">Delete</a></td>
+				
+			</tr>
+	{% endfor %}
+	<tbody>
+</table>
+<div class="pagerfanta">
+  {{ knp_pagination_render(persons) }}
+</div>
+	<a href="{{ path('persons_insert') }}" class ="btn btn-primary">Add New</a>
+{% endblock %}
